@@ -9,11 +9,13 @@ import s from './MyPosts.module.css'
 // }
 
 export const MyPosts = () => {
-    let postsData = [
+    let posts = [
         {id: 1, posts: 'Hello', likeCount: 10},
         {id: 2, posts: "It\'s my first post", likeCount: 12},
         {id: 3, posts: 'Best practise', likeCount: 15},
     ]
+
+    let postsElements = posts.map(el=><Post message={el.posts} likeCount={el.likeCount} key={el.id}/>)
 
     return (
         <div className={s.postsBlock}>
@@ -25,14 +27,12 @@ export const MyPosts = () => {
                     <textarea></textarea>
                 </div>
               <div>
-                  <button>+</button>
+                  <button>Add post</button>
               </div>
 
             </div>
             <div className={s.posts}>
-                <Post message = {postsData[0].posts} likeCount={postsData[0].likeCount}/>
-                <Post message = {postsData[1].posts} likeCount={postsData[1].likeCount}/>
-                <Post message = {postsData[2].posts} likeCount={postsData[2].likeCount}/>
+                {postsElements}
             </div>
 
         </div>
