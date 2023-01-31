@@ -11,7 +11,10 @@ export const MyPosts = (props: ProfilePageType) => {
     let postMessageRef = React.createRef<HTMLTextAreaElement>()
 
     const addPostCallback = () => {
-     addPost(postMessageRef.current? postMessageRef.current.value : '--')
+     addPost(postMessageRef.current? postMessageRef.current.value : '')
+       if (postMessageRef.current !==null){
+           postMessageRef.current.value = ''
+       }
     }
 
     return (
