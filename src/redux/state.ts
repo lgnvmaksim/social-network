@@ -1,4 +1,6 @@
-import {rerenderTree} from "../render";
+let rerenderTree= (state:RootStateType)=>{
+    console.log('state')
+}
 
 export type MessageType = {
     id: number,
@@ -35,20 +37,6 @@ export type RootStateType = {
 
 
 }
-
-
-export const addPost = (postMessage: string) => {
-    let newPost = {id: 5, message: postMessage, likesCount: 12}
-    state.profilePage.posts.push(newPost)
-    rerenderTree(state)
-}
-
-export const changeNewText = (newText: string) => {
-    state.profilePage.messageForNewPost = newText
-    rerenderTree(state)
-}
-
-
 export let state: RootStateType = {
     profilePage: {
         messageForNewPost: '',
@@ -78,3 +66,22 @@ export let state: RootStateType = {
     },
     sidebar: {}
 }
+
+
+
+export const addPost = (postMessage: string) => {
+    let newPost = {id: 5, message: postMessage, likesCount: 12}
+    state.profilePage.posts.push(newPost)
+    rerenderTree(state)
+}
+
+export const changeNewText = (newText: string) => {
+    state.profilePage.messageForNewPost = newText
+    rerenderTree(state)
+}
+
+export const subscribe = (observer:any) => {
+    rerenderTree=observer
+}
+
+
