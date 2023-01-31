@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {addPost, ProfilePageType} from "../../../redux/state";
+import {addPost, changeNewText, ProfilePageType} from "../../../redux/state";
 
 
 export const MyPosts = (props: ProfilePageType) => {
@@ -12,9 +12,12 @@ export const MyPosts = (props: ProfilePageType) => {
 
     const addPostCallback = () => {
      addPost(postMessageRef.current? postMessageRef.current.value : '')
-       if (postMessageRef.current !==null){
-           postMessageRef.current.value = ''
-       }
+        changeNewText('')
+
+    }
+
+    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        changeNewText(e.currentTarget.value);
     }
 
     return (
@@ -24,7 +27,7 @@ export const MyPosts = (props: ProfilePageType) => {
             </h3>
             <div>
                 <div>
-                    <textarea ref={postMessageRef}></textarea>
+                    <textarea ref={postMessageRef} value={props.messageForNewPost} onChange={newTextChangeHandler}></textarea>
                 </div>
                 <div>
                     <button onClick={addPostCallback}>Add post</button>

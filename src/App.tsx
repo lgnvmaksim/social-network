@@ -19,7 +19,7 @@ export const App = (props: RootStateType) => {
                            render={() => <Dialogs
                                dialogs={props.dialogsPage.dialogs}
                                messages={props.dialogsPage.messages}  />}/>
-                    <Route path='/profile' render={() => <Profile posts={props.profilePage.posts}   />}/>
+                    <Route path='/profile' render={() => <Profile posts={props.profilePage.posts}  messageForNewPost={props.profilePage.messageForNewPost} />}/>
                 </div>
             </div>
         </BrowserRouter>
