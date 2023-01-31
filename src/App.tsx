@@ -5,12 +5,10 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {Profile} from "./components/Profile/Profile";
-import {MainType} from "./index";
+import {RootStateType} from "./redux/state";
 
 
-export const App = (props: MainType) => {
-
-
+export const App = (props: RootStateType) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -18,8 +16,10 @@ export const App = (props: MainType) => {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
-                           render={() => <Dialogs dialogsItem={props.dialogs} messages={props.messages}/>}/>
-                    <Route path='/profile' render={() => <Profile myPosts={props.posts}/>}/>
+                           render={() => <Dialogs
+                               dialogs={props.dialogsPage.dialogs}
+                               messages={props.dialogsPage.messages}  />}/>
+                    <Route path='/profile' render={() => <Profile posts={props.profilePage.posts} />}/>
                 </div>
             </div>
         </BrowserRouter>
