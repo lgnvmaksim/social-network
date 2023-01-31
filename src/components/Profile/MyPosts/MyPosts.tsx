@@ -1,7 +1,7 @@
 import React from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {ProfilePageType} from "../../../redux/state";
+import {addPost, ProfilePageType} from "../../../redux/state";
 
 
 export const MyPosts = (props: ProfilePageType) => {
@@ -10,8 +10,8 @@ export const MyPosts = (props: ProfilePageType) => {
 
     let postMessageRef = React.createRef<HTMLTextAreaElement>()
 
-    const addPost = () => {
-        alert(postMessageRef.current?.value )
+    const addPostCallback = () => {
+     addPost(postMessageRef.current? postMessageRef.current.value : '--')
     }
 
     return (
@@ -24,7 +24,7 @@ export const MyPosts = (props: ProfilePageType) => {
                     <textarea ref={postMessageRef}></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={addPostCallback}>Add post</button>
                 </div>
 
             </div>

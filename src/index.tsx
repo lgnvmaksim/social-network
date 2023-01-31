@@ -9,6 +9,6 @@ import {state} from "./redux/state";
 
 
 ReactDOM.render(
-    <App dialogsPage={state.dialogsPage} profilePage={state.profilePage} />,
+    <App dialogsPage={state.dialogsPage} profilePage={state.profilePage}   />,
   document.getElementById('root')
 );
