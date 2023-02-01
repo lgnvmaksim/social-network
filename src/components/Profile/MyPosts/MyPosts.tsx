@@ -2,6 +2,7 @@ import React, {ChangeEvent} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
 import {ProfileType} from "../Profile";
+import {addPostAC, updateNewTextAC} from "../../../redux/state";
 
 
 export const MyPosts = (props: ProfileType) => {
@@ -11,18 +12,12 @@ export const MyPosts = (props: ProfileType) => {
     let postMessageRef = React.createRef<HTMLTextAreaElement>()
 
     const addPostCallback = () => {
-        props.dispatch({
-            type: "ADD-POST", postMessage: postMessageRef.current ? postMessageRef.current.value : ''
-        })
-        props.dispatch({
-            type: "UPDATE-NEW-TEXT", newText: ''
-        })
+        props.dispatch(addPostAC(postMessageRef.current ? postMessageRef.current.value : ''))
+        props.dispatch(updateNewTextAC(''))
     }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({
-            type: "UPDATE-NEW-TEXT", newText: e.currentTarget.value
-        })
+        props.dispatch(updateNewTextAC(e.currentTarget.value))
     }
 
 

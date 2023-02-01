@@ -33,20 +33,26 @@ export type StoreType = {
     _callSubscriber: () => void
     subscriber: (callback: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: AddPostAC| UpdateNewTextAC) => void
+    dispatch: (action: ActionType) => void
 }
 
-type AddPostAC= {
-    type: 'ADD-POST',
-    postMessage:string
+
+export type ActionType= ReturnType<typeof updateNewTextAC>
+| ReturnType<typeof addPostAC>
+
+export const addPostAC = (postMessage:string) => {
+    return {
+        type: 'ADD-POST',
+        postMessage: postMessage
+    } as const
 }
 
-type UpdateNewTextAC= {
-    type: 'UPDATE-NEW-TEXT',
-    newText:string
+export const updateNewTextAC = (newText:string) =>{
+    return {
+        type: "UPDATE-NEW-TEXT",
+        newText: newText
+    } as const
 }
-
-export type ActionType= AddPostAC | UpdateNewTextAC
 
 export const store: StoreType = {
     _state: {
