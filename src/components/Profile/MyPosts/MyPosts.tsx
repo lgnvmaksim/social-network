@@ -11,13 +11,18 @@ export const MyPosts = (props: ProfileType) => {
     let postMessageRef = React.createRef<HTMLTextAreaElement>()
 
     const addPostCallback = () => {
-        props.addPost(postMessageRef.current ? postMessageRef.current.value : '')
-        props.changeNewText('')
-
+        props.dispatch({
+            type: "ADD-POST", postMessage: postMessageRef.current ? postMessageRef.current.value : ''
+        })
+        props.dispatch({
+            type: "UPDATE-NEW-TEXT", newText: ''
+        })
     }
 
-    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewText(e.currentTarget.value);
+    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch({
+            type: "UPDATE-NEW-TEXT", newText: e.currentTarget.value
+        })
     }
 
 
@@ -29,7 +34,7 @@ export const MyPosts = (props: ProfileType) => {
             <div>
                 <div>
                     <textarea ref={postMessageRef} value={props.messageForNewPost}
-                              onChange={newTextChangeHandler}></textarea>
+                              onChange={onPostChange}></textarea>
                 </div>
                 <div>
                     <button onClick={addPostCallback}>Add post</button>

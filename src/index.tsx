@@ -9,7 +9,7 @@ import {App} from './App';
 
 const rerenderTree = () => {
     ReactDOM.render(
-        <App store={store}  addPost={store.addPost.bind(store)}   changeNewText={store.changeNewText.bind(store)} />,
+        <App store={store}  dispatch={store.dispatch.bind(store)}  />,
         document.getElementById('root')
     );
 }
