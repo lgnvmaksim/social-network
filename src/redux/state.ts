@@ -18,6 +18,7 @@ export type ProfilePageType = {
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageBody: string
 }
 export type SidebarType = {}
 export type RootStateType = {
@@ -27,7 +28,6 @@ export type RootStateType = {
 
 
 }
-
 export type StoreType = {
     _state: RootStateType
     _callSubscriber: () => void
@@ -35,22 +35,36 @@ export type StoreType = {
     getState: () => RootStateType
     dispatch: (action: ActionType) => void
 }
+export type ActionType =
+    ReturnType<typeof updateNewTextAC>
+    | ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewMessageBodyAC>
+    | ReturnType<typeof sendMessageAC>
 
-
-export type ActionType= ReturnType<typeof updateNewTextAC>
-| ReturnType<typeof addPostAC>
-
-export const addPostAC = (postMessage:string) => {
+export const addPostAC = (postMessage: string) => {
     return {
         type: 'ADD-POST',
         postMessage: postMessage
     } as const
 }
 
-export const updateNewTextAC = (newText:string) =>{
+export const updateNewTextAC = (newText: string) => {
     return {
         type: "UPDATE-NEW-TEXT",
         newText: newText
+    } as const
+}
+
+export const updateNewMessageBodyAC = (body: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-BODY',
+        body: body
+    } as const
+}
+
+export const sendMessageAC = () => {
+    return {
+        type: 'SEND-MESSAGE',
     } as const
 }
 
@@ -80,7 +94,8 @@ export const store: StoreType = {
                 {id: 3, message: 'Yo'},
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'}
-            ]
+            ],
+            newMessageBody: ''
         },
         sidebar: {}
     },
@@ -100,6 +115,14 @@ export const store: StoreType = {
             this._callSubscriber()
         } else if (action.type === 'UPDATE-NEW-TEXT') {
             this._state.profilePage.messageForNewPost = action.newText
+            this._callSubscriber()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this._state.dialogsPage.newMessageBody = action.body
+            this._callSubscriber()
+        } else if (action.type === 'SEND-MESSAGE') {
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = ''
+            this._state.dialogsPage.messages.push({id: 6, message: body})
             this._callSubscriber()
         }
     }

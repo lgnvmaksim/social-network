@@ -23,8 +23,10 @@ export const App = (props: AppPropsType) => {
                 <div className='app-wrapper-content'>
                     <Route path='/dialogs'
                            render={() => <Dialogs
+                               newMessageBody={state.dialogsPage.newMessageBody}
                                dialogs={state.dialogsPage.dialogs}
-                               messages={state.dialogsPage.messages}/>}/>
+                               messages={state.dialogsPage.messages}
+                               dispatch={props.dispatch}/>}/>
                     <Route path='/profile' render={() => <Profile posts={state.profilePage.posts}
                                                                   messageForNewPost={state.profilePage.messageForNewPost}
                                                                   dispatch={props.dispatch}
