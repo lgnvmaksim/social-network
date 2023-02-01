@@ -1,3 +1,7 @@
+import {addPostAC, profileReducer, updateNewTextAC} from "./profile-reducer";
+import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
+
 export type MessageType = {
     id: number,
     message: string
@@ -24,9 +28,7 @@ export type SidebarType = {}
 export type RootStateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogPageType
-    sidebar?: SidebarType
-
-
+    sidebar: SidebarType
 }
 export type StoreType = {
     _state: RootStateType
@@ -41,37 +43,13 @@ export type ActionType =
     | ReturnType<typeof updateNewMessageBodyAC>
     | ReturnType<typeof sendMessageAC>
 
-export const addPostAC = (postMessage: string) => {
-    return {
-        type: 'ADD-POST',
-        postMessage: postMessage
-    } as const
-}
 
-export const updateNewTextAC = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-TEXT",
-        newText: newText
-    } as const
-}
 
-export const updateNewMessageBodyAC = (body: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: body
-    } as const
-}
-
-export const sendMessageAC = () => {
-    return {
-        type: 'SEND-MESSAGE',
-    } as const
-}
 
 export const store: StoreType = {
     _state: {
         profilePage: {
-            messageForNewPost: '!',
+            messageForNewPost: '',
             posts: [
                 {id: 1, message: 'Hi, how are you?', likesCount: 12},
                 {id: 2, message: "It's my first post", likesCount: 11},
@@ -109,22 +87,11 @@ export const store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            let newPost = {id: 5, message: action.postMessage, likesCount: 12}
-            this._state.profilePage.posts.push(newPost)
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-TEXT') {
-            this._state.profilePage.messageForNewPost = action.newText
-            this._callSubscriber()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._state.dialogsPage.newMessageBody = action.body
-            this._callSubscriber()
-        } else if (action.type === 'SEND-MESSAGE') {
-            let body = this._state.dialogsPage.newMessageBody
-            this._state.dialogsPage.newMessageBody = ''
-            this._state.dialogsPage.messages.push({id: 6, message: body})
-            this._callSubscriber()
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber()
+
     }
 }
 
