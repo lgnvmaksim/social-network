@@ -12,7 +12,7 @@ const rerenderTree = () => {
 
     ReactDOM.render(
         <Provider store={store}>
-            <App dispatch={store.dispatch.bind(store)}/>,
+            <App dispatch={store.dispatch.bind(store)} store={store.getState()}/>,
         </Provider>,
         document.getElementById('root')
     );

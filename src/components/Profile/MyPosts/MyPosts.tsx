@@ -1,24 +1,28 @@
 import React, {ChangeEvent} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {ProfileType} from "../Profile";
-import {addPostAC, updateNewTextAC} from "../../../redux/profile-reducer";
+import {PostType} from "../../../redux/store";
 
 
-export const MyPosts = (props: ProfileType) => {
+type MyPostsType = {
+    posts: PostType[]
+    messageForNewPost: string
+    addPostCallback:(postMessage:string)=>void
+    onPostChange:(e: ChangeEvent<HTMLTextAreaElement>)=>void
+}
+export const MyPosts = (props: MyPostsType) => {
     let postsElements = props.posts.map(el => <Post message={el.message} likeCount={el.likesCount} key={el.id}/>)
-
 
     let postMessageRef = React.createRef<HTMLTextAreaElement>()
 
     const addPostCallback = () => {
-        props.dispatch(addPostAC(postMessageRef.current ? postMessageRef.current.value : ''))
-        props.dispatch(updateNewTextAC(''))
-    }
+        props.addPostCallback(postMessageRef.current ? postMessageRef.current.value : '')
 
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateNewTextAC(e.currentTarget.value))
-    }
+      }
+
+      const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.onPostChange(e)
+      }
 
 
     return (
