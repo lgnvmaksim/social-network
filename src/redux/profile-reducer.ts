@@ -1,4 +1,11 @@
-import {ActionType, ProfilePageType} from "./store";
+import {ProfilePageType} from "./store";
+import {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+
+export type ActionProfileType =
+    ReturnType<typeof updateNewTextAC>
+    | ReturnType<typeof addPostAC>
+
+
 
 let initialState={
     messageForNewPost: '',
@@ -10,7 +17,7 @@ let initialState={
             ]
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionType):ProfilePageType  => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType):ProfilePageType  => {
     switch (action.type) {
         case 'ADD-POST': {
             let newPost = {id: 5, message: action.postMessage, likesCount: 12}

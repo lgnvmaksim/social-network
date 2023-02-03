@@ -1,5 +1,5 @@
-import {addPostAC, profileReducer, updateNewTextAC} from "./profile-reducer";
-import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+import {ActionProfileType} from "./profile-reducer";
+import {ActionDialogsType} from "./dialogs-reducer";
 
 
 export type MessageType = {
@@ -35,13 +35,8 @@ export type StoreType = {
     _callSubscriber: () => void
     subscriber: (callback: () => void) => void
     getState: () => RootStateType
-    dispatch: (action: ActionType) => void
+    dispatch: (action: ActionProfileType | ActionDialogsType) => void
 }
-export type ActionType =
-    ReturnType<typeof updateNewTextAC>
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewMessageBodyAC>
-    | ReturnType<typeof sendMessageAC>
 
 
 

@@ -1,16 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
-import {PostType} from "../../../redux/store";
+import {MyPostsContainerType} from "./MyPostsContainer";
 
 
-type MyPostsType = {
-    posts: PostType[]
-    messageForNewPost: string
-    addPostCallback:(postMessage:string)=>void
-    onPostChange:(e: ChangeEvent<HTMLTextAreaElement>)=>void
-}
-export const MyPosts = (props: MyPostsType) => {
+export const MyPosts = (props: MyPostsContainerType) => {
     let postsElements = props.posts.map(el => <Post message={el.message} likeCount={el.likesCount} key={el.id}/>)
 
     let postMessageRef = React.createRef<HTMLTextAreaElement>()
