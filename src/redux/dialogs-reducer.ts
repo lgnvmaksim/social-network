@@ -1,4 +1,3 @@
-
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
@@ -46,9 +45,8 @@ export const dialogsReducer = (state: DialogPageType=initialState, action: Actio
             }
         }
         case "SEND-MESSAGE":{
-            let body = state.newMessageBody
             return {
-                ...state, newMessageBody: '', messages: [...state.messages, {id: 6, message: body}]
+                ...state, newMessageBody: '', messages: [...state.messages, {id: 6, message: state.newMessageBody}]
             }
         }
         default:

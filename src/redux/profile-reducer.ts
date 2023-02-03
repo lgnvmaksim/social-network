@@ -1,5 +1,3 @@
-
-
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewPost: string
@@ -11,11 +9,9 @@ export type PostType = {
     likesCount: number
 }
 
-
 export type ActionProfileType =
     ReturnType<typeof updateNewTextAC>
     | ReturnType<typeof addPostAC>
-
 
 
 let initialState={
