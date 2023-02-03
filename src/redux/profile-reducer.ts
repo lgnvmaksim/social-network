@@ -1,5 +1,16 @@
-import {ProfilePageType} from "./store";
-import {sendMessageAC, updateNewMessageBodyAC} from "./dialogs-reducer";
+
+
+export type ProfilePageType = {
+    posts: Array<PostType>
+    messageForNewPost: string
+}
+
+export type PostType = {
+    id: number,
+    message: string,
+    likesCount: number
+}
+
 
 export type ActionProfileType =
     ReturnType<typeof updateNewTextAC>

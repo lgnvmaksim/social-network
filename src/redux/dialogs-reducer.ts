@@ -1,4 +1,18 @@
-import {DialogPageType} from "./store";
+
+export type DialogPageType = {
+    dialogs: Array<DialogType>
+    messages: Array<MessageType>
+    newMessageBody: string
+}
+
+export type MessageType = {
+    id: number,
+    message: string
+}
+export type DialogType = {
+    id: number,
+    name: string
+}
 
 
 export type ActionDialogsType = ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>

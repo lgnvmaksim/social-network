@@ -7,19 +7,17 @@ import {Profile} from "./components/Profile/Profile";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
-
-
 export const App = () => {
     return (
 
-            <div className='app-wrapper'>
-                <Header/>
-                <Navbar/>
-                <div className='app-wrapper-content'>
-                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                    <Route path='/profile' render={() => <Profile/>}/>
-                </div>
+        <div className='app-wrapper'>
+            <Header/>
+            <Navbar/>
+            <div className='app-wrapper-content'>
+                <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+                <Route path='/profile' render={() => <Profile/>}/>
             </div>
+        </div>
 
     )
 }

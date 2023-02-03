@@ -1,4 +1,4 @@
-import {SidebarType} from "./store";
+export type SidebarType = {}
 
 let initialState= {}
 
