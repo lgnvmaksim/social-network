@@ -17,7 +17,7 @@ type mapDispatchToPropsType={
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
-        users: state.usersPage.users
+        users: state.usersPage.items
     }
 }
 

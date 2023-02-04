@@ -1,41 +1,57 @@
 import React from 'react';
 import {UsersContainerType} from "./UsersContainer";
 import s from './Users.module.css'
+import axios from "axios";
+import userPhoto2 from './../../assets/images/userPhoto2.jpg'
+import {initialUsersStateType} from "../../redux/users-reducer";
 
 export const Users = (props: UsersContainerType) => {
     if (props.users.length===0){
         props.setUsers([
-            {
-                id: 1,
-                photoUrl: 'https://cdn.dribbble.com/users/5982351/screenshots/14764310/media/2b5664cbfbd8b3f5447710760472228f.png?compress=1&resize=400x300&vertical=top',
-                followed: true,
-                fullName: 'Max',
-                status: 'I am a boss',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: 2,
-                photoUrl: 'https://cdn.dribbble.com/users/5982351/screenshots/14764310/media/2b5664cbfbd8b3f5447710760472228f.png?compress=1&resize=400x300&vertical=top',
-                followed: false,
-                fullName: 'Nika',
-                status: 'I am a boss-wife',
-                location: {city: 'Moscow', country: 'Russia'}
-            },
-            {
-                id: 3,
-                photoUrl: 'https://cdn.dribbble.com/users/5982351/screenshots/14764310/media/2b5664cbfbd8b3f5447710760472228f.png?compress=1&resize=400x300&vertical=top',
-                followed: false,
-                fullName: 'Sonya',
-                status: 'I am a boss-child',
-                location: {city: 'Kiev', country: 'Ukraine'}
-            },])
+            // {
+            //     id: 1,
+            //     photos: {
+            //         small: '',
+            //         large: ''
+            //     },
+            //     followed: true,
+            //     name: 'Max',
+            //     status: 'I am a boss',
+            //     location: {city: 'Minsk', country: 'Belarus'}
+            // },
+            // {
+            //     id: 2,
+            //     photos: {
+            //         small: '',
+            //         large: ''
+            //     },
+            //     followed: false,
+            //     name: 'Nika',
+            //     status: 'I am a boss-wife',
+            //     location: {city: 'Moscow', country: 'Russia'}
+            // },
+            // {
+            //     id: 3,
+            //     photos: {
+            //         small: '',
+            //         large: ''
+            //     },                followed: false,
+            //     name: 'Sonya',
+            //     status: 'I am a boss-child',
+            //     location: {city: 'Kiev', country: 'Ukraine'}
+            // },
+        ])
     }
+
+    axios.get<initialUsersStateType>('https://social-network.samuraijs.com/api/1.0/users').then(r => {
+        props.setUsers(r.data.items)
+    })
 
     return <div>
         {props.users.map(el => <div key={el.id}>
             <span>
                 <div>
-                    <img src={el.photoUrl} className={s.userPhoto} alt="usersImg"/>
+                    <img src={el.photos.small ? el.photos.small : userPhoto2} className={s.userPhoto} alt="usersImg"/>
                 </div>
                 <div>
                     {el.followed
@@ -46,12 +62,12 @@ export const Users = (props: UsersContainerType) => {
             </span>
             <span>
                 <span>
-                    <div>{el.fullName}</div>
+                    <div>{el.name}</div>
                     <div>{el.status}</div>
                 </span>
                 <span>
-                    <div>{el.location.country}</div>
-                    <div>{el.location.city}</div>
+                    <div>{'el.location.country'}</div>
+                    <div>{'el.location.city'}</div>
                 </span>
             </span>
         </div>)}

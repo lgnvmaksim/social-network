@@ -1,55 +1,75 @@
-type initialStateType = {
-    users: UsersInitialStateType[]
+export type initialUsersStateType = {
+    items: UsersInitialStateType[]
 }
-export type UsersInitialStateType = { id: number, photoUrl: string, followed: boolean, fullName: string, status: string, location: LocationType }
-
+export type UsersInitialStateType = {
+    id: number, photos: PhotosType, followed: boolean, name: string, status: string | null,
+    // location: LocationType,
+    uniqueUrlName: string| null
+}
+type PhotosType = {
+    small: string,
+    large: string
+}
 type LocationType = { city: string, country: string }
 
-const initialState: initialStateType = {
-    users: [
-    //     {
-    //         id: 1,
-    //         photoUrl: 'https://cdn.dribbble.com/users/5982351/screenshots/14764310/media/2b5664cbfbd8b3f5447710760472228f.png?compress=1&resize=400x300&vertical=top',
-    //         followed: true,
-    //         fullName: 'Max',
-    //         status: 'I am a boss',
-    //         location: {city: 'Minsk', country: 'Belarus'}
-    //     },
-    //     {
-    //         id: 2,
-    //         photoUrl: 'https://cdn.dribbble.com/users/5982351/screenshots/14764310/media/2b5664cbfbd8b3f5447710760472228f.png?compress=1&resize=400x300&vertical=top',
-    //         followed: false,
-    //         fullName: 'Nika',
-    //         status: 'I am a boss-wife',
-    //         location: {city: 'Moscow', country: 'Russia'}
-    //     },
-    //     {
-    //         id: 3,
-    //         photoUrl: 'https://cdn.dribbble.com/users/5982351/screenshots/14764310/media/2b5664cbfbd8b3f5447710760472228f.png?compress=1&resize=400x300&vertical=top',
-    //         followed: false,
-    //         fullName: 'Sonya',
-    //         status: 'I am a boss-child',
-    //         location: {city: 'Kiev', country: 'Ukraine'}
-    //     },
+const initialState: initialUsersStateType = {
+    items: [
+        {
+            id: 1,
+            photos: {
+                small: '',
+                large: ''
+            },
+            followed: true,
+            name: 'Max',
+            status: 'I am a boss',
+            // location: {city: 'Minsk', country: 'Belarus'},
+            uniqueUrlName: '',
+
+        },
+        {
+            id: 2,
+            photos: {
+                small: '',
+                large: ''
+            },
+            followed: false,
+            name: 'Nika',
+            status: 'I am a boss-wife',
+            // location: {city: 'Moscow', country: 'Russia'},
+            uniqueUrlName: null,
+        },
+        {
+            id: 3,
+            photos: {
+                small: '',
+                large: ''
+            },
+            followed: false,
+            name: 'Sonya',
+            status: 'I am a boss-child',
+            // location: {city: 'Kiev', country: 'Ukraine'},
+            uniqueUrlName: null,
+        },
     ]
 }
 
 export type ActionUsersType = followACType | unFollowACType | setUsersACType
 
-export const usersReducer = (state: initialStateType = initialState, action: ActionUsersType): initialStateType => {
+export const usersReducer = (state: initialUsersStateType = initialState, action: ActionUsersType): initialUsersStateType => {
     switch (action.type) {
         case 'FOLLOW': {
             return {
-                ...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: true} : el)
+                ...state, items: state.items.map(el => el.id === action.userId ? {...el, followed: true} : el)
             }
         }
         case "UNFOLLOW": {
             return {
-                ...state, users: state.users.map(el => el.id === action.userId ? {...el, followed: false} : el)
+                ...state, items: state.items.map(el => el.id === action.userId ? {...el, followed: false} : el)
             }
         }
         case "SET-USERS": {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, items: [...state.items, ...action.users]}
         }
         default:
             return state
