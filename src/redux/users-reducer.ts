@@ -12,7 +12,7 @@ type PhotosType = {
 }
 type LocationType = { city: string, country: string }
 
-const initialState: initialUsersStateType = {
+export const initialState: initialUsersStateType = {
     items: [
         // {
         //     id: 1,

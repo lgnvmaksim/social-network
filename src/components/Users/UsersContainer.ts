@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
-import {Users} from "./Users";
 import {AppRootStateType} from "../../redux/redux-store";
 import {ActionUsersType, followAC, setUsersAC, unFollowAC, UsersInitialStateType} from "../../redux/users-reducer";
+import {Users} from "./Users";
 
 export type UsersContainerType = mapStateToPropsType & mapDispatchToPropsType
 
