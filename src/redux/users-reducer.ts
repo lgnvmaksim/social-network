@@ -14,43 +14,43 @@ type LocationType = { city: string, country: string }
 
 const initialState: initialUsersStateType = {
     items: [
-        {
-            id: 1,
-            photos: {
-                small: '',
-                large: ''
-            },
-            followed: true,
-            name: 'Max',
-            status: 'I am a boss',
-            // location: {city: 'Minsk', country: 'Belarus'},
-            uniqueUrlName: '',
-
-        },
-        {
-            id: 2,
-            photos: {
-                small: '',
-                large: ''
-            },
-            followed: false,
-            name: 'Nika',
-            status: 'I am a boss-wife',
-            // location: {city: 'Moscow', country: 'Russia'},
-            uniqueUrlName: null,
-        },
-        {
-            id: 3,
-            photos: {
-                small: '',
-                large: ''
-            },
-            followed: false,
-            name: 'Sonya',
-            status: 'I am a boss-child',
-            // location: {city: 'Kiev', country: 'Ukraine'},
-            uniqueUrlName: null,
-        },
+        // {
+        //     id: 1,
+        //     photos: {
+        //         small: '',
+        //         large: ''
+        //     },
+        //     followed: true,
+        //     name: 'Max',
+        //     status: 'I am a boss',
+        //     // location: {city: 'Minsk', country: 'Belarus'},
+        //     uniqueUrlName: '',
+        //
+        // },
+        // {
+        //     id: 2,
+        //     photos: {
+        //         small: '',
+        //         large: ''
+        //     },
+        //     followed: false,
+        //     name: 'Nika',
+        //     status: 'I am a boss-wife',
+        //     // location: {city: 'Moscow', country: 'Russia'},
+        //     uniqueUrlName: null,
+        // },
+        // {
+        //     id: 3,
+        //     photos: {
+        //         small: '',
+        //         large: ''
+        //     },
+        //     followed: false,
+        //     name: 'Sonya',
+        //     status: 'I am a boss-child',
+        //     // location: {city: 'Kiev', country: 'Ukraine'},
+        //     uniqueUrlName: null,
+        // },
     ]
 }
 
