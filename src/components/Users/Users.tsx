@@ -6,17 +6,13 @@ import axios from "axios";
 import {initialUsersStateType} from "../../redux/users-reducer";
 
 export class Users extends React.Component<UsersContainerType> {
-    constructor(props: UsersContainerType) {
-        super(props);
-        if (this.props.users.length === 0) {
-            axios.get<initialUsersStateType>('https://social-network.samuraijs.com/api/1.0/users').then(r => {
-                this.props.setUsers(r.data.items)
-            })
-        }
-    }
-    getUsers = () => {
 
+    componentDidMount() {
+        axios.get<initialUsersStateType>('https://social-network.samuraijs.com/api/1.0/users').then(r => {
+            this.props.setUsers(r.data.items)
+        })
     }
+
     render() {
         return <div>
             {this.props.users.map(el => <div key={el.id}>
