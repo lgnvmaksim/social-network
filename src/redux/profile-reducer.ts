@@ -10,7 +10,7 @@ export type ProfileType = {
     fullName: string,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
-    userId: number,
+    userId: string,
     photos: PhotosType
 }
 
@@ -39,7 +39,7 @@ export type ActionProfileType =
     ReturnType<typeof updateNewTextAC> | ReturnType<typeof addPostAC> | setUserProfileType
 
 
-let initialState = {
+let initialState: ProfilePageType = {
     messageForNewPost: '',
     posts: [
         {id: 1, message: 'Hi, how are you?', likesCount: 12},
@@ -65,7 +65,7 @@ let initialState = {
             small: '',
             large: ''
         },
-        userId: 1
+        userId: '1'
     }
 }
 
