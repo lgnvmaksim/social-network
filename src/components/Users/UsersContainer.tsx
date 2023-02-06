@@ -1,17 +1,18 @@
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
 import {
-    ActionUsersType,
-    followAC, initialUsersStateType,
-    setCurrentPageAC,
-    setUsersAC, setUsersTotalCountAC, toggleIsFetchingAC,
-    unFollowAC,
+    follow,
+    initialUsersStateType,
+    setCurrentPage,
+    setUsers,
+    setTotalUsersCount,
+    toggleIsFetching,
+    unFollow,
     UsersInitialStateType
 } from "../../redux/users-reducer";
 import React from "react";
 import axios from "axios";
 import {Users} from "./Users";
-import preloader from '../../assets/images/loading1.gif'
 import {Preloader} from "../common/Preloader/Preloader";
 
 class UsersApiComponent extends React.Component<UsersContainerType> {
@@ -82,30 +83,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: (action: ActionUsersType) => void): mapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unFollow: (userId: number) => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: (users: UsersInitialStateType[]) => {
-            dispatch(setUsersAC(users))
-        },
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageAC(pageNumber))
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setUsersTotalCountAC(totalCount))
-        },
-        toggleIsFetching: (isFetching) => {
-            dispatch(toggleIsFetchingAC(isFetching))
-        }
-
-    }
-}
-
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiComponent)
+export const UsersContainer = connect(mapStateToProps, {
+    follow, unFollow, setUsers,
+    setCurrentPage, setTotalUsersCount, toggleIsFetching
+})(UsersApiComponent)
 
