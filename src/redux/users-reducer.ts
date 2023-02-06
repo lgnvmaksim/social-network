@@ -3,7 +3,8 @@ export type initialUsersStateType = {
     pageSize: number,
     totalUsersCount: number
     currentPage: number
-    totalCount: number
+    totalCount: number,
+    isFetching: boolean
 }
 export type UsersInitialStateType = {
     id: number, photos: PhotosType, followed: boolean, name: string, status: string | null,
@@ -59,11 +60,12 @@ export const initialState: initialUsersStateType = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage:1,
-    totalCount: 1
+    totalCount: 1,
+    isFetching: true
 
 }
 
-export type ActionUsersType = followACType | unFollowACType | setUsersACType | setCurrentPageACType | setUsersTotalCountACType
+export type ActionUsersType = followACType | unFollowACType | setUsersACType | setCurrentPageACType | setUsersTotalCountACType | setIsFetchingACType
 
 export const usersReducer = (state: initialUsersStateType = initialState, action: ActionUsersType): initialUsersStateType => {
     switch (action.type) {
@@ -89,6 +91,11 @@ export const usersReducer = (state: initialUsersStateType = initialState, action
             return {
                 ...state, totalUsersCount: action.count
             }
+        } case "TOGGLE IS FETCHING": {
+            return{
+                ...state, isFetching: action.isFetching
+            }
+
         }
         default:
             return state
@@ -134,4 +141,14 @@ export const setUsersTotalCountAC = (count: number) => {
         count: count
     }as const
 }
+
+type setIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type:"TOGGLE IS FETCHING",
+        isFetching: isFetching
+    } as const
+
+}
+
 
