@@ -8,13 +8,37 @@ import {initialUsersStateType} from "../../redux/users-reducer";
 export class Users extends React.Component<UsersContainerType> {
 
     componentDidMount() {
-        axios.get<initialUsersStateType>('https://social-network.samuraijs.com/api/1.0/users').then(r => {
+        axios.get<initialUsersStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(r => {
             this.props.setUsers(r.data.items)
+            this.props.setTotalUsersCount(r.data.totalCount)
         })
     }
 
+    onPageChanged = (pageNumber: number)=>{
+        this.props.setCurrentPage(pageNumber)
+            axios.get<initialUsersStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(r => {
+                this.props.setUsers(r.data.items)
+            })
+    }
+
     render() {
+
+        let pagesCount: number = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+
+        let pages = []
+        for (let i = 1; i <= 20; i++) {
+            pages.push(i)
+        }
+
         return <div>
+            <div>
+                {pages.map(el => {
+                        return <span onClick={(e) => {
+                            this.onPageChanged(el)
+                        }} className={this.props.currentPage === el ? s.selectedPage : ''}>{el}</span>
+                    }
+                )}
+            </div>
             {this.props.users.map(el => <div key={el.id}>
             <span>
                 <div>
