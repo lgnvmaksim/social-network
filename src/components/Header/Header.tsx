@@ -9,7 +9,6 @@ type HeaderType={
 }
 
 export const Header = (props: HeaderType) => {
-    console.log(`login in Header ---- ${props.login}`)
     return (
         <header className={s.header}>
             <img src={headerPhoto}

@@ -10,7 +10,6 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 
 export const App = () => {
     return (
-
         <div className='app-wrapper'>
             <HeaderContainer/>
             <Navbar/>

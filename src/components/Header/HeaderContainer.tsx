@@ -16,7 +16,6 @@ class HeaderContainer extends React.Component<AuthType> {
                 if (r.data.resultCode===0) {
                     let {id, email, login} = r.data.data
                     this.props.setAuthUserData({id, email, login})
-                    console.log('login in container' + ' ' + login)
                 }
             })
     }

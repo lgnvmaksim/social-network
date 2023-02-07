@@ -16,7 +16,6 @@ export type DataInsideType={
 
 }
 
-
  const initialState: InitialAuthStateType = {
     data:{
         data: {
@@ -35,9 +34,7 @@ export const authReducer = (state = initialState, action: ActionType): InitialAu
     switch (action.type) {
         case 'SET-USER-DATA':{
             return {
-                ...state,
-                ...action.dataName,
-                isAuth: true
+               ...state, data: {...state.data, data: action.dataName}, isAuth: true
             }
         }
         default: return state
