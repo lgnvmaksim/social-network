@@ -10,11 +10,9 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
 
-        console.log(this.props,"this.props")
         let userId = this.props.match.params.userId
-        console.log(userId)
         if (!userId) {userId='2'}
-        axios.get<ProfileType>('https://social-network.samuraijs.com/api/1.0/profile/' + userId)   //Нужна ли тут типищация
+        axios.get<ProfileType>('https://social-network.samuraijs.com/api/1.0/profile/' + userId)
             .then(r => {
                 this.props.setUserProfile(r.data)
 

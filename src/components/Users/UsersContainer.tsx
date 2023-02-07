@@ -29,7 +29,8 @@ class UsersApiComponent extends React.Component<UsersContainerType> {
     onPageChanged = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
-        axios.get<initialUsersStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(r => {
+        axios.get<initialUsersStateType>(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(r => {
             this.props.toggleIsFetching(false)
             this.props.setUsers(r.data.items)
         })
