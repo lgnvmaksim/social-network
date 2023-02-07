@@ -1,7 +1,7 @@
 import React from "react";
 import userPhoto2 from "../../assets/images/userPhoto2.jpg";
 import s from "./Users.module.css"
-import {initialUsersStateType, UsersInitialStateType} from "../../redux/users-reducer";
+import {UsersInitialStateType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
 

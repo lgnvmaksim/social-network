@@ -1,49 +1,39 @@
 export type InitialAuthStateType = {
-    data: DataAuthType,
-    isAuth:boolean
-}
-
-export type DataAuthType ={
-    data: DataInsideType
-    resultCode: number,
+    id: null |string,
+    email: null| string,
+    login: null| string,
+    isAuth: boolean
 
 }
 
-export type DataInsideType={
-    id: null | number | undefined,
-    email: null | string |undefined,
-    login: null | string
-
+const initialState: InitialAuthStateType = {
+    id: null,
+    email: null,
+    login: null,
+    isAuth: false
 }
 
- const initialState: InitialAuthStateType = {
-    data:{
-        data: {
-            id: null,
-            email: null,
-            login: null,
-        },
-        resultCode: 0
-    },
-     isAuth: false
-}
+    type ActionType = setUserDataType
 
-type ActionType = setUserDataType
-
-export const authReducer = (state = initialState, action: ActionType): InitialAuthStateType => {
-    switch (action.type) {
-        case 'SET-USER-DATA':{
-            return {
-               ...state, data: {...state.data, data: action.dataName}, isAuth: true
+    export const authReducer = (state = initialState, action: ActionType): InitialAuthStateType => {
+        switch (action.type) {
+            case 'SET-USER-DATA': {
+                return {
+                    ...state,
+                    id: action.id,
+                    email: action.email,
+                    login: action.login,
+                    isAuth: true
+                }
             }
+            default:
+                return state
         }
-        default: return state
     }
-}
 
-type setUserDataType = ReturnType<typeof setAuthUserData>
-export const setAuthUserData  = ({id, email, login}:DataInsideType) => {
-    return {
-        type: 'SET-USER-DATA', dataName: {id, email, login}
-    } as const
-}
+    type setUserDataType = ReturnType < typeof setAuthUserData >
+    export const setAuthUserData = (id: string| null, email: string|null, login: string|null) => {
+        return {
+            type: 'SET-USER-DATA',id, email, login
+        } as const
+    }
