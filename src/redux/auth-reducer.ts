@@ -13,9 +13,9 @@ const initialState: InitialAuthStateType = {
     isAuth: false
 }
 
-    type ActionType = setUserDataType
+   export type ActionAuthType = setUserDataType
 
-    export const authReducer = (state = initialState, action: ActionType): InitialAuthStateType => {
+    export const authReducer = (state = initialState, action: ActionAuthType): InitialAuthStateType => {
         switch (action.type) {
             case 'SET-USER-DATA': {
                 return {
