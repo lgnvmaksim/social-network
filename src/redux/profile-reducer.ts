@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {userApi} from "../api/api";
+
 export type ProfilePageType = {
     posts: Array<PostType>
     messageForNewPost: string
@@ -14,12 +17,12 @@ export type ProfileType = {
     photos: PhotosType
 }
 
-type PhotosType={
+type PhotosType = {
     small: string,
     large: string
 }
 
-type ContactsType={
+type ContactsType = {
     facebook: null | string,
     github: null | string,
     mainLink: null | string,
@@ -110,3 +113,14 @@ export const setUserProfile = (profile: ProfileType) => {
         type: "SET-USER-PROFILE", profile
     } as const
 }
+
+export const getUserProfile = (userId: string) => {
+    return (dispatch: Dispatch<ActionProfileType>) => {
+        userApi.getProfile(userId)
+            .then(r => {
+                dispatch(setUserProfile(r.data))
+            })
+    }
+}
+
+

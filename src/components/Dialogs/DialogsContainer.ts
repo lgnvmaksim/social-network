@@ -14,7 +14,8 @@ export type DialogsContainerType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType={
     dialogs: DialogType[],
     messages: MessageType[]
-    newMessageBody: string
+    newMessageBody: string,
+    isAuth: boolean
 }
 type mapDispatchToPropsType={
     onSendMessageClick:()=>void
@@ -26,7 +27,8 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
-        newMessageBody: state.dialogsPage.newMessageBody
+        newMessageBody: state.dialogsPage.newMessageBody,
+        isAuth: state.auth.isAuth
     }
 }
 
