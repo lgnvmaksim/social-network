@@ -4,10 +4,14 @@
     padding: 20px;
 }
 .item a{
-    color: #ac8bf5;
+    color: #4809de;
     text-decoration: none;
 }
 
 .item a.activeLink{
-    color: #ff00c6;
+    color: #ff5fdf;
+}
+
+.item a:hover{
+    color: #ff0000;
 }
