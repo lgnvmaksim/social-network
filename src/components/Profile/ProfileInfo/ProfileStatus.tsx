@@ -7,7 +7,6 @@ type ProfileStatusType =  {
 
 export class ProfileStatus extends React.Component<ProfileStatusType> {
 
-
     state = {
         editMode: false,
         status: this.props.status
@@ -32,20 +31,20 @@ export class ProfileStatus extends React.Component<ProfileStatusType> {
         })
     }
 
-    // componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState?: Readonly<{}>, snapshot?: any) {
-    // if (prevProps.status!==this.props.status) {
-    //     this.setState({
-    //         status: this.props.status
-    //     })
-    // }
-    // }
+    componentDidUpdate(prevProps: Readonly<ProfileStatusType>, prevState?: Readonly<{}>, snapshot?: any) {
+    if (prevProps.status!==this.props.status) {
+        this.setState({
+            status: this.props.status
+        })
+    }
+    }
 
     render() {
         return (
             <div>
                 {!this.state.editMode &&
                     <div>
-                        <span onDoubleClick={this.activateEditMode}>{this.props.status ||'-------'}</span>
+                        <span onDoubleClick={this.activateEditMode}>{this.state.status ||'-------'}</span>
                     </div>
                 }
                 {this.state.editMode &&
