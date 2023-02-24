@@ -1,3 +1,5 @@
+import {v1} from "uuid";
+
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
@@ -5,33 +7,33 @@ export type DialogPageType = {
 }
 
 export type MessageType = {
-    id: number,
+    id: string,
     message: string
 }
 export type DialogType = {
-    id: number,
+    id: string,
     name: string
 }
 
 
-export type ActionDialogsType = ReturnType<typeof updateNewMessageBodyAC> | ReturnType<typeof sendMessageAC>
+export type ActionDialogsType = ReturnType<typeof sendMessageAC>
 
 
 let initialState={
     dialogs: [
-                {id: 1, name: 'Dimych'},
-                {id: 2, name: 'Andrew'},
-                {id: 3, name: 'Sveta'},
-                {id: 4, name: 'Sasha'},
-                {id: 5, name: 'Viktor'},
-                {id: 6, name: 'Valera'}
+                {id: v1(), name: 'Dimych'},
+                {id: v1(), name: 'Andrew'},
+                {id: v1(), name: 'Sveta'},
+                {id: v1(), name: 'Sasha'},
+                {id: v1(), name: 'Viktor'},
+                {id: v1(), name: 'Valera'}
             ],
             messages: [
-                {id: 1, message: 'Hi'},
-                {id: 2, message: 'How is your it-kamasutra?'},
-                {id: 3, message: 'Yo'},
-                {id: 4, message: 'Yo'},
-                {id: 5, message: 'Yo'}
+                {id: v1(), message: 'Hi'},
+                {id: v1(), message: 'How is your it-kamasutra?'},
+                {id: v1(), message: 'Yo'},
+                {id: v1(), message: 'Yo'},
+                {id: v1(), message: 'Yo'}
             ],
             newMessageBody: ''
 }
@@ -39,14 +41,14 @@ let initialState={
 
 export const dialogsReducer = (state: DialogPageType=initialState, action: ActionDialogsType): DialogPageType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-BODY": {
-            return {
-                ...state, newMessageBody: action.body
-            }
-        }
+        // case "UPDATE-NEW-MESSAGE-BODY": {
+        //     return {
+        //         ...state, newMessageBody: action.body
+        //     }
+        // }
         case "SEND-MESSAGE":{
             return {
-                ...state, newMessageBody: '', messages: [...state.messages, {id: 6, message: state.newMessageBody}]
+                ...state, messages: [...state.messages, {id: v1(), message: action.newMessageBody}]
             }
         }
         default:
@@ -54,14 +56,14 @@ export const dialogsReducer = (state: DialogPageType=initialState, action: Actio
     }
 }
 
-export const updateNewMessageBodyAC = (body: string) => {
+// export const updateNewMessageBodyAC = (body: string) => {
+//     return {
+//         type: 'UPDATE-NEW-MESSAGE-BODY',
+//         body: body
+//     } as const
+// }
+export const sendMessageAC = (newMessageBody: string) => {
     return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: body
-    } as const
-}
-export const sendMessageAC = () => {
-    return {
-        type: 'SEND-MESSAGE',
+        type: 'SEND-MESSAGE',newMessageBody
     } as const
 }

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {profileApi, userApi} from "../api/api";
+import {v1} from "uuid";
 
 export type ProfilePageType = {
     posts: Array<PostType>
@@ -34,7 +35,7 @@ type ContactsType = {
 }
 
 export type PostType = {
-    id: number,
+    id: string,
     message: string,
     likesCount: number
 }
@@ -47,10 +48,10 @@ export type ActionProfileType =
 let initialState: ProfilePageType = {
     messageForNewPost: 'Hello Maxi',
     posts: [
-        {id: 1, message: 'Hi, how are you?', likesCount: 12},
-        {id: 2, message: "It's my first post", likesCount: 11},
-        {id: 3, message: 'Blabla', likesCount: 11},
-        {id: 4, message: 'Dada', likesCount: 11}
+        {id: v1(), message: 'Hi, how are you?', likesCount: 12},
+        {id: v1(), message: "It's my first post", likesCount: 11},
+        {id: v1(), message: 'Blabla', likesCount: 11},
+        {id: v1(), message: 'Dada', likesCount: 11}
     ],
     profile: {
         aboutMe: '',
@@ -83,7 +84,7 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
         }
         case 'ADD-POST': {
-            let newPost = {id: 5, message: action.postMessage, likesCount: 12}
+            let newPost = {id: v1(), message: action.postMessage, likesCount: 12}
             return {
                 ...state, posts: [...state.posts, newPost]
             }

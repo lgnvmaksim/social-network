@@ -3,7 +3,6 @@ import {
     DialogType,
     MessageType,
     sendMessageAC,
-    updateNewMessageBodyAC
 } from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -19,8 +18,8 @@ type mapStateToPropsType={
     // isAuth: boolean
 }
 type mapDispatchToPropsType={
-    onSendMessageClick:()=>void
-    onMessageChange:(event: string)=>void
+    onSendMessageClick:(value: string)=>void
+    // onMessageChange:(event: string)=>void
 }
 
 
@@ -35,12 +34,12 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
 
 const mapDispatchToProps = (dispatch: (action: ActionDialogsType) => void): mapDispatchToPropsType => {
     return {
-        onSendMessageClick: () => {
-            dispatch(sendMessageAC())
+        onSendMessageClick: (newMessageBody: string) => {
+            dispatch(sendMessageAC(newMessageBody))
         },
-        onMessageChange: (e: string) => {
-            dispatch(updateNewMessageBodyAC(e))
-        }
+        // onMessageChange: (e: string) => {
+        //     dispatch(updateNewMessageBodyAC(e))
+        // }
     }
 }
 
