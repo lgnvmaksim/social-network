@@ -41,12 +41,12 @@ export type PostType = {
 }
 
 export type ActionProfileType =
-    ReturnType<typeof updateNewTextAC> | ReturnType<typeof addPostAC> | setUserProfileType
+ ReturnType<typeof addPostAC> | setUserProfileType
     | ReturnType<typeof setStatusAC>
 
 
 let initialState: ProfilePageType = {
-    messageForNewPost: 'Hello Maxi',
+    messageForNewPost: '',
     posts: [
         {id: v1(), message: 'Hi, how are you?', likesCount: 12},
         {id: v1(), message: "It's my first post", likesCount: 11},
@@ -84,14 +84,14 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             }
         }
         case 'ADD-POST': {
-            let newPost = {id: v1(), message: action.postMessage, likesCount: 12}
+            let newPost = {id: v1(), message: action.messageForNewPost, likesCount: 12}
             return {
                 ...state, posts: [...state.posts, newPost]
             }
         }
-        case "UPDATE-NEW-TEXT": {
-            return {...state, messageForNewPost: action.newText}
-        }
+        // case "UPDATE-NEW-TEXT": {
+        //     return {...state, messageForNewPost: action.newText}
+        // }
         case "SET-USER-PROFILE": {
             return {
                 ...state, profile: action.profile
@@ -103,18 +103,18 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 }
 
 
-export const addPostAC = (postMessage: string) => {
+export const addPostAC = (messageForNewPost: string) => {
     return {
         type: 'ADD-POST',
-        postMessage: postMessage
+        messageForNewPost: messageForNewPost
     } as const
 }
-export const updateNewTextAC = (newText: string) => {
-    return {
-        type: "UPDATE-NEW-TEXT",
-        newText: newText
-    } as const
-}
+// export const updateNewTextAC = (newText: string) => {
+//     return {
+//         type: "UPDATE-NEW-TEXT",
+//         newText: newText
+//     } as const
+// }
 
 type setUserProfileType = ReturnType<typeof setUserProfile>
 export const setUserProfile = (profile: ProfileType) => {
