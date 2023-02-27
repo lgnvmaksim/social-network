@@ -14,7 +14,7 @@ type MapStateToPropsForRedirectProfileType={
 export function withAuthRedirect <T>(Component: ComponentType<T>)  {
     function RedirectComponent(props: MapStateToPropsForRedirectProfileType) {
         let {isAuth, ...restProps} = props
-        // if (!props.isAuth) return <Redirect to={'login'}/> //Редирект кривой какой-то, все время на логин кидает
+        if (!props.isAuth) return <Redirect to={'login'}/> //Редирект кривой какой-то, все время на логин кидает
         return <Component {...restProps as T}/>
     }
 

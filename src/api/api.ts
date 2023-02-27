@@ -8,6 +8,31 @@ const instance = axios.create({
     headers: {'API-KEY': 'b4d8e782-12a1-4cd0-86dd-a8ec637b9008'}
 })
 
+
+export type AuthType ={
+    email:string| null
+    password: string| null
+    rememberMe: boolean
+}
+
+export type AuthLoginType ={
+    resultCode: number
+    messages: string[],
+    data: {
+        userId: number
+    }
+}
+
+export type AuthGetType ={
+    resultCode: number
+    messages: string[],
+    data: {
+        id: number|null,
+        email: string| null,
+        login: string| null
+    }
+}
+
 export const userApi = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get<initialUsersStateType>(`users?page=${currentPage}&count=${pageSize}`)
@@ -39,8 +64,14 @@ export const profileApi = {
 
 export const authApi={
     me () {
-      return  instance.get(`auth/me`)
-    }
+      return  instance.get<AuthGetType>(`auth/me`)
+    },
+    login(email: string, password: string, rememberMe:boolean=false){
+        return instance.post(`auth/login`, {email, password, rememberMe})
+    },
+    logout(){
+        return instance.delete<AuthLoginType>(`auth/login`)
+    },
 }
 
 

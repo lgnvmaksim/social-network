@@ -15,11 +15,11 @@ type mapStateToPropsType={
     dialogs: DialogType[],
     messages: MessageType[]
     newMessageBody: string,
-    // isAuth: boolean
+
 }
 type mapDispatchToPropsType={
     onSendMessageClick:(value: string)=>void
-    // onMessageChange:(event: string)=>void
+
 }
 
 
@@ -28,7 +28,7 @@ const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
         newMessageBody: state.dialogsPage.newMessageBody,
-        // isAuth: state.auth.isAuth
+
     }
 }
 
@@ -37,9 +37,7 @@ const mapDispatchToProps = (dispatch: (action: ActionDialogsType) => void): mapD
         onSendMessageClick: (newMessageBody: string) => {
             dispatch(sendMessageAC(newMessageBody))
         },
-        // onMessageChange: (e: string) => {
-        //     dispatch(updateNewMessageBodyAC(e))
-        // }
+
     }
 }
 
