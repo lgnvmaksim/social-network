@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authApi, AuthGetType, AuthLoginType, AuthType} from "../api/api";
-import {AppThunkType} from "./redux-store";
+import {authApi} from "../api/api";
+import {FormAction, stopSubmit} from "redux-form";
 
 export type InitialAuthStateType = {
     id: number | null,
@@ -54,11 +54,13 @@ export const getAuthUserData = () => {
     }
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) =>async (dispatch:(action: ReturnType<typeof getAuthUserData>)=>void) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean) =>async (dispatch:(action: FormAction | ReturnType<typeof getAuthUserData> )=>void) => {
 authApi.login(email, password, rememberMe)
     .then((res)=>{
         if (res.data.resultCode === 0) {
             dispatch(getAuthUserData())
+        } else {
+            dispatch(stopSubmit('login', {_error: res.data.messages}))
         }
     })
 }

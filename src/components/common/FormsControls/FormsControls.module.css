@@ -11,3 +11,9 @@
 .formControl.error span{
     color: #08ffdd;
 }
+
+.formSummaryError{
+    border: #8a0202 3px solid;
+    padding: 5px;
+    color: #c5ff00;
+}
