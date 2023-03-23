@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {initialUsersStateType} from "../redux/users-reducer";
 
 
@@ -15,22 +15,16 @@ export type AuthType ={
     rememberMe: boolean
 }
 
-export type AuthLoginType ={
+export type AuthLoginType<T={}> ={
     resultCode: number
     messages: string[],
-    data: {
-        userId: number
-    }
+    data: T
 }
 
 export type AuthGetType ={
-    resultCode: number
-    messages: string[],
-    data: {
-        id: number|null,
-        email: string| null,
-        login: string| null
-    }
+        id: number
+        email: string
+        login: string
 }
 
 export const userApi = {
@@ -64,10 +58,10 @@ export const profileApi = {
 
 export const authApi={
     me () {
-      return  instance.get<AuthGetType>(`auth/me`)
+      return  instance.get<AuthLoginType<AuthGetType>>(`auth/me`)
     },
     login(email: string, password: string, rememberMe:boolean=false){
-        return instance.post(`auth/login`, {email, password, rememberMe})
+        return instance.post<AxiosResponse<AuthLoginType<{userId: number}>>>(`auth/login`, {email, password, rememberMe})
     },
     logout(){
         return instance.delete<AuthLoginType>(`auth/login`)

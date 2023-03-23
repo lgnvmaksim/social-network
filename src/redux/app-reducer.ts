@@ -1,6 +1,4 @@
 import {Dispatch} from "redux";
-import {authApi} from "../api/api";
-import {FormAction, stopSubmit} from "redux-form";
 import {getAuthUserData} from "./auth-reducer";
 
 export type InitialAuthStateType = {
@@ -30,7 +28,8 @@ export const appReducer = (state = initialState, action: ActionAppType): Initial
 
 export const initializedSuccessAC = () => ({type: 'INITIALIZED-SUCCESS'}as const)
 
-export const initializeAppTC = () =>(dispatch: any) => {
+
+export const initializeAppTC = () =>(dispatch: Dispatch) => {
   let promise =  dispatch(getAuthUserData())
     promise.then(()=>
     dispatch(initializedSuccessAC()))

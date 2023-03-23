@@ -36,7 +36,7 @@ export const authReducer = (state = initialState, action: ActionAuthType): Initi
 }
 
 type setUserDataType = ReturnType<typeof setAuthUserData>
-export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean) => {
+export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => {
     return {
         type: 'SET-USER-DATA', id, email, login, isAuth
     } as const
@@ -52,13 +52,13 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
     })
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => async (dispatch: (action: FormAction | ReturnType<typeof getAuthUserData>) => void) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
     authApi.login(email, password, rememberMe)
         .then((res) => {
-            if (res.data.resultCode === 0) {
+            if (res.data.data.resultCode === 0) {
                 dispatch(getAuthUserData())
             } else {
-                dispatch(stopSubmit('login', {_error: res.data.messages}))
+                dispatch(stopSubmit('login', {_error: res.data.data.messages}))
             }
         })
 }
