@@ -1,5 +1,6 @@
 import {userApi} from "../api/api";
 import {Dispatch} from "redux";
+import {AppThunk} from "./redux-store";
 
 export type initialUsersStateType = {
     items: UsersInitialStateType[]
@@ -22,45 +23,7 @@ type PhotosType = {
 // type LocationType = { city: string, country: string }
 
 export const initialState: initialUsersStateType = {
-    items: [
-        // {
-        //     id: 1,
-        //     photos: {
-        //         small: '',
-        //         large: ''
-        //     },
-        //     followed: true,
-        //     name: 'Max',
-        //     status: 'I am a boss',
-        //     // location: {city: 'Minsk', country: 'Belarus'},
-        //     uniqueUrlName: '',
-        //
-        // },
-        // {
-        //     id: 2,
-        //     photos: {
-        //         small: '',
-        //         large: ''
-        //     },
-        //     followed: false,
-        //     name: 'Nika',
-        //     status: 'I am a boss-wife',
-        //     // location: {city: 'Moscow', country: 'Russia'},
-        //     uniqueUrlName: null,
-        // },
-        // {
-        //     id: 3,
-        //     photos: {
-        //         small: '',
-        //         large: ''
-        //     },
-        //     followed: false,
-        //     name: 'Sonya',
-        //     status: 'I am a boss-child',
-        //     // location: {city: 'Kiev', country: 'Ukraine'},
-        //     uniqueUrlName: null,
-        // },
-    ],
+    items: [],
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
@@ -178,8 +141,8 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: number) => 
     } as const
 }
 
-export const getUsers = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch<ActionUsersType>) => {
+export const requestUsers = (currentPage: number, pageSize: number): AppThunk => {
+    return (dispatch) => {
         dispatch(toggleIsFetching(true))
         userApi.getUsers(currentPage, pageSize).then(data => {
             dispatch(toggleIsFetching(false))

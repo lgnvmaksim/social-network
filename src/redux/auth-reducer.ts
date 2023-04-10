@@ -1,6 +1,8 @@
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {authApi} from "../api/api";
 import {FormAction, stopSubmit} from "redux-form";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootStateType, AppThunk} from "./redux-store";
 
 export type InitialAuthStateType = {
     id: number | null,
@@ -36,7 +38,7 @@ export const authReducer = (state = initialState, action: ActionAuthType): Initi
 }
 
 type setUserDataType = ReturnType<typeof setAuthUserData>
-export const setAuthUserData = (id: number, email: string, login: string, isAuth: boolean) => {
+export const setAuthUserData = (id: number| null , email: string| null, login: string| null, isAuth:boolean) => {
     return {
         type: 'SET-USER-DATA', id, email, login, isAuth
     } as const
@@ -52,7 +54,7 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
     })
 }
 
-export const loginTC = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
     authApi.login(email, password, rememberMe)
         .then((res) => {
             if (res.data.data.resultCode === 0) {
@@ -63,7 +65,7 @@ export const loginTC = (email: string, password: string, rememberMe: boolean) =>
         })
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
+export const logoutTC = (): AppThunk => (dispatch) => {
     authApi.logout()
         .then((res) => {
             if (res.data.resultCode === 0) {
