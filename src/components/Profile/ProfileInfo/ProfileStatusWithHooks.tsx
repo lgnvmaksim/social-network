@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {updateStatusTC} from "../../../redux/profile-reducer";
 
@@ -20,16 +20,18 @@ export const ProfileStatusWithHooks = (props: ProfileStatusType) => {
        dispatch(updateStatusTC(status))
     }
 
-
-
     const onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
 
     }
 
+    useEffect(()=>{
+        setStatus(props.status)
+    },[props.status])
+
     return <div>
         {!edit && <div>
-            <span onClick={activateMode}>{status}</span>
+            <span onClick={activateMode}>{props.status}</span>
         </div>
         }
         {edit &&
