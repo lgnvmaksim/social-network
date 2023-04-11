@@ -15,7 +15,7 @@ export type AuthType ={
     rememberMe: boolean
 }
 
-export type AuthLoginType<T={}> ={
+export type ResponseType<T={}> ={
     resultCode: number
     messages: string[],
     data: T
@@ -58,13 +58,13 @@ export const profileApi = {
 
 export const authApi={
     me () {
-      return  instance.get<AuthLoginType<AuthGetType>>(`auth/me`)
+      return  instance.get<ResponseType<AuthGetType>>(`auth/me`)
     },
     login(email: string, password: string, rememberMe:boolean=false){
-        return instance.post<AxiosResponse<AuthLoginType<{userId: number}>>>(`auth/login`, {email, password, rememberMe})
+        return instance.post<AxiosResponse<ResponseType<{userId: number}>>>(`auth/login`, {email, password, rememberMe})
     },
     logout(){
-        return instance.delete<AuthLoginType>(`auth/login`)
+        return instance.delete<ResponseType>(`auth/login`)
     },
 }
 

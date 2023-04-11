@@ -2,7 +2,7 @@ import React from 'react';
 import s from './ProfileInfo.module.css'
 import {ProfileContainerType} from "../ProfileContainer";
 import {Preloader} from "../../common/Preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 export const ProfileInfo = (props: ProfileContainerType) => {
     if(!props.profile){
@@ -13,7 +13,7 @@ export const ProfileInfo = (props: ProfileContainerType) => {
         {/*     alt="background"/>*/}
         <div className={s.descriptionBlock}>
             <img src={props.profile.photos.large} alt={'userPhoto'}/>
-          <ProfileStatus status={props.status} updateStatusTC={props.updateStatusTC}/>
+          <ProfileStatusWithHooks status={props.status} updateStatusTC={props.updateStatusTC}/>
         </div>
     </div>
 };

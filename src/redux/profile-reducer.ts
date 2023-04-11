@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {profileApi, userApi} from "../api/api";
 import {v1} from "uuid";
+import {AppThunk} from "./redux-store";
 
 export type ProfilePageType = {
     posts: Array<PostType>
@@ -73,7 +74,7 @@ let initialState: ProfilePageType = {
         },
         userId: '1'
     },
-    status: ''
+    status: 'Hello'
 }
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionProfileType): ProfilePageType => {
@@ -136,7 +137,7 @@ export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
         .then(res => dispatch(setStatusAC(res.data)))
 }
 
-export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
+export const updateStatusTC = (status: string):AppThunk => (dispatch) => {
     profileApi.updateStatus(status)
         .then(res => {
             if (res.data.resultCode===0){
