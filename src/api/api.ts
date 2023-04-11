@@ -52,7 +52,7 @@ export const profileApi = {
           return instance.get('profile/status/' + userId)
     },
     updateStatus(status: string){
-          return instance.put('profile/status/', {status})
+          return instance.put<{ status: string}, AxiosResponse<ResponseType>>('profile/status', {status})
     }
 }
 

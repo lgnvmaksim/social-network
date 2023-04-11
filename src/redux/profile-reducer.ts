@@ -123,7 +123,9 @@ export const setUserProfile = (profile: ProfileType) => {
 
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 
-export const getUserProfile = (userId: string) => {
+
+
+export const getUserProfileTC = (userId: string) => {
     return (dispatch: Dispatch<ActionProfileType>) => {
         userApi.getProfile(userId)
             .then(r => {

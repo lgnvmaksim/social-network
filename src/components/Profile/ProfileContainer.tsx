@@ -2,7 +2,7 @@ import React from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/redux-store";
-import {getStatusTC, getUserProfile, ProfileType, updateStatusTC} from "../../redux/profile-reducer";
+import {getStatusTC, getUserProfileTC, ProfileType, updateStatusTC} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
@@ -51,4 +51,4 @@ let mapStateToProps = (state: AppRootStateType): MapStateToPropsProfileType => (
 })
 
 
-export default withAuthRedirect(connect(mapStateToProps, {getUserProfile, getStatusTC, updateStatusTC})(withRouter(ProfileContainer)))
+export default withAuthRedirect(connect(mapStateToProps, {getUserProfile: getUserProfileTC, getStatusTC, updateStatusTC})(withRouter(ProfileContainer)))

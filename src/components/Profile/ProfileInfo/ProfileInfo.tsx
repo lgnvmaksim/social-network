@@ -13,7 +13,7 @@ export const ProfileInfo = (props: ProfileContainerType) => {
         {/*     alt="background"/>*/}
         <div className={s.descriptionBlock}>
             <img src={props.profile.photos.large} alt={'userPhoto'}/>
-          <ProfileStatusWithHooks status={props.status} updateStatusTC={props.updateStatusTC}/>
+          <ProfileStatusWithHooks status={props.status}/>
         </div>
     </div>
 };
