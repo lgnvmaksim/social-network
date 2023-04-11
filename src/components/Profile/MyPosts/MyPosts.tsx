@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Post} from "./Post/Post";
 import s from './MyPosts.module.css'
 import {MyPostsContainerType} from "./MyPostsContainer";
@@ -22,8 +22,9 @@ const AddNewPostForm: React.FC<InjectedFormProps<MyPostsContainerType>> = (props
 
 export const AddMessageFromRedux = reduxForm<MyPostsContainerType>({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
-export const MyPosts = (props: MyPostsContainerType) => {
-    let postsElements = props.posts.map(el => <Post message={el.message} likeCount={el.likesCount} key={el.id}/>)
+export const MyPosts = memo((props: MyPostsContainerType) => {
+    let postsElements = props.posts.map(el => <Post message={el.message} likeCount={el.likesCount}
+                                                    key={el.id}/>)
 
 
     const addPostCallback = (values: MyPostsContainerType) => {
@@ -42,4 +43,5 @@ export const MyPosts = (props: MyPostsContainerType) => {
 
         </div>
     );
-};
+}
+)
