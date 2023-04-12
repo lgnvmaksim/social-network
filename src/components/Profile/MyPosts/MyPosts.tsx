@@ -11,7 +11,8 @@ let maxLength10 = maxLengthCreator(10)
 const AddNewPostForm: React.FC<InjectedFormProps<MyPostsContainerType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
         <div>
-            <Field component={Textarea} name={'messageForNewPost'} validate={[required, maxLength10]} placeholder={'Hello Maxi'}/>
+            <Field component={Textarea} name={'messageForNewPost'} validate={[required, maxLength10]}
+                   placeholder={'Hello Maxi'}/>
         </div>
         <div>
             <button>Add post</button>
@@ -23,25 +24,27 @@ const AddNewPostForm: React.FC<InjectedFormProps<MyPostsContainerType>> = (props
 export const AddMessageFromRedux = reduxForm<MyPostsContainerType>({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
 export const MyPosts = memo((props: MyPostsContainerType) => {
-    let postsElements = props.posts.map(el => <Post message={el.message} likeCount={el.likesCount}
-                                                    key={el.id}/>)
+        let postsElements = [...props.posts]
+            .reverse()
+            .map(el => <Post message={el.message} likeCount={el.likesCount}
+                             key={el.id}/>)
 
 
-    const addPostCallback = (values: MyPostsContainerType) => {
-        props.addPostCallback(values.messageForNewPost)
+        const addPostCallback = (values: MyPostsContainerType) => {
+            props.addPostCallback(values.messageForNewPost)
 
-    }
-    return (
-        <div className={s.postsBlock}>
-            <h3>
-                My posts
-            </h3>
-            <AddMessageFromRedux onSubmit={addPostCallback}/>
-            <div className={s.posts}>
-                {postsElements}
+        }
+        return (
+            <div className={s.postsBlock}>
+                <h3>
+                    My posts
+                </h3>
+                <AddMessageFromRedux onSubmit={addPostCallback}/>
+                <div className={s.posts}>
+                    {postsElements}
+                </div>
+
             </div>
-
-        </div>
-    );
-}
+        );
+    }
 )

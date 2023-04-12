@@ -70,20 +70,6 @@ type mapDispatchToPropsType = {
     follow: (userId: number)=>void
     unFollow: (userId: number)=>void
 }
-//
-// const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
-//     return {
-//         users: state.usersPage.items,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         totalCount: state.usersPage.totalUsersCount,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
-
-
 
 const mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
     return {

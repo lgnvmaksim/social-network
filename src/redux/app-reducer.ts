@@ -18,7 +18,7 @@ export const appReducer = (state = initialState, action: ActionAppType): Initial
         case 'INITIALIZED-SUCCESS': {
             return {
                 ...state,
-             initialized: true
+                initialized: true
             }
         }
         default:
@@ -27,12 +27,13 @@ export const appReducer = (state = initialState, action: ActionAppType): Initial
 }
 
 
-export const initializedSuccessAC = () => ({type: 'INITIALIZED-SUCCESS'}as const)
+export const initializedSuccessAC = () => ({type: 'INITIALIZED-SUCCESS'} as const)
 
 
-export const initializeAppTC = (): AppThunk =>(dispatch) => {
-  let promise =  dispatch(getAuthUserData())
-    promise.then(()=>
-    dispatch(initializedSuccessAC()))
+export const initializeAppTC = (): AppThunk => (dispatch) => {
+    let promise = dispatch(getAuthUserData())
+    Promise.all([promise])
+        .then(() => dispatch(initializedSuccessAC()))
+
 
 }

@@ -42,7 +42,7 @@ export type PostType = {
 }
 
 export type ActionProfileType =
- ReturnType<typeof addPostAC> | setUserProfileType
+    ReturnType<typeof addPostAC> | setUserProfileType
     | ReturnType<typeof setStatusAC>
 
 
@@ -124,27 +124,20 @@ export const setUserProfile = (profile: ProfileType) => {
 export const setStatusAC = (status: string) => ({type: 'SET-STATUS', status} as const)
 
 
+export const getUserProfileTC = (userId: string): AppThunk => async (dispatch) => {
+    const res = await userApi.getProfile(userId)
+    dispatch(setUserProfile(res.data))
+}
 
-export const getUserProfileTC = (userId: string) => {
-    return (dispatch: Dispatch<ActionProfileType>) => {
-        userApi.getProfile(userId)
-            .then(r => {
-                dispatch(setUserProfile(r.data))
-            })
+export const getStatusTC = (userId: string): AppThunk => async (dispatch) => {
+    const res = await profileApi.getStatus(userId)
+    dispatch(setStatusAC(res.data))
+}
+
+export const updateStatusTC = (status: string): AppThunk => async (dispatch) => {
+    const res = await profileApi.updateStatus(status)
+    if (res.data.resultCode === 0) {
+        dispatch(setStatusAC(status))
     }
-}
-
-export const getStatusTC = (userId: string) => (dispatch: Dispatch) => {
-    profileApi.getStatus(userId)
-        .then(res => dispatch(setStatusAC(res.data)))
-}
-
-export const updateStatusTC = (status: string):AppThunk => (dispatch) => {
-    profileApi.updateStatus(status)
-        .then(res => {
-            if (res.data.resultCode===0){
-                dispatch(setStatusAC(status))
-            }
-        })
 }
 
